@@ -1,0 +1,40 @@
+# Render Blueprint: PostgreSQL + Spring Boot backend (Docker).
+# The frontend is deployed separately on Vercel (see README, "Deployment").
+# Secrets marked "sync: false" are typed into the Render dashboard - never commit them.
+databases:
+  - name: lms-db
+    databaseName: lms
+    user: lms_user
+    region: singapore
+    plan: free
+
+services:
+  - type: web
+    name: lms-backend
+    runtime: docker
+    region: singapore            # same region as the database
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DATABASE_URL        # jdbc:postgresql://<internal host>:5432/lms  (jdbc form, see README)
+        sync: false
+      - key: DATABASE_USERNAME
+        fromDatabase: { name: lms-db, property: user }
+      - key: DATABASE_PASSWORD
+        fromDatabase: { name: lms-db, property: password }
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL        # your Vercel URL, e.g. https://my-lms.vercel.app  (comma-separate to add localhost)
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
