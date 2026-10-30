@@ -11,9 +11,9 @@ Full-stack LMS: **React + Vite + TypeScript** · **Spring Boot 3 (Java 17)** · 
 | Enrollment | Free courses enroll directly; paid courses go through Razorpay Checkout |
 | Assignments / Quizzes / Forums | Submissions + grading, auto-graded MCQs, per-course discussions |
 | Progress & Certificates | % progress, PDF certificate at 100%, public verification page `/verify/:code` |
-| **Payments (CO-Payment)** | Razorpay order → popup → backend signature check → enrollment, plus a **webhook** safety net |
-| **Background jobs (CO5)** | After a verified payment: `EMAIL`, `INVOICE`, `NOTIFICATION` jobs run with Spring `@Async`; status goes `PENDING → PROCESSING → COMPLETED/FAILED` and is pushed live to the Admin dashboard (WebSocket + STOMP) |
-| **Deployment (CO6)** | Env-driven config, Dockerfiles, `render.yaml`, `vercel.json`, GitHub Actions CI |
+| **Payments** | Razorpay order → popup → backend signature check → enrollment, plus a **webhook** safety net |
+| **Background jobs** | After a verified payment: `EMAIL`, `INVOICE`, `NOTIFICATION` jobs run with Spring `@Async`; status goes `PENDING → PROCESSING → COMPLETED/FAILED` and is pushed live to the Admin dashboard (WebSocket + STOMP) |
+| **Deployment** | Env-driven config, Dockerfiles, `render.yaml`, `vercel.json`, GitHub Actions CI |
 
 Default admin (created on first start): `admin@lms.com` / `admin123` — **change it before deploying.**
 
